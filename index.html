@@ -97,6 +97,22 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
 .addr-block p{margin-bottom:16px;font-size:15px;line-height:1.5;color:#e6decc}
 .addr-block strong{display:block;color:var(--cream);font-weight:500;margin-bottom:4px}
 .addr-block a{text-decoration:underline;text-underline-offset:3px}
+
+.courses-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:36px}
+.courses-head h2{margin:0}
+.courses-head .lede{margin-top:0;max-width:32ch;font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{border:1px solid rgba(245,239,226,.16);padding:22px 20px 20px;display:flex;flex-direction:column;gap:10px;min-height:180px}
+.card__num{font-size:12px;letter-spacing:.08em;opacity:.45}
+.card h3{font-size:18px;font-weight:500;letter-spacing:-.02em;line-height:1.25}
+.card p{font-size:13px;line-height:1.45;color:#e6decc;flex:1}
+.card__meta{margin-top:8px}
+.card__dur{font-size:12px;opacity:.65}
+.card a{margin-top:8px;align-self:flex-start;display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border:1px solid var(--cream);font-size:13px;font-weight:500;letter-spacing:.04em;transition:background .3s cubic-bezier(.215,.61,.355,1),color .3s cubic-bezier(.215,.61,.355,1)}
+.card a:hover{background:var(--cream);color:#151510}
+@media (max-width:900px){.grid{grid-template-columns:1fr 1fr}}
+@media (max-width:720px){.grid{grid-template-columns:1fr}}
+
 .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;padding:0 0 48px;font-size:13px;opacity:.55}
 @media(max-width:900px){
   .split,.columns,.contact,.t-item{grid-template-columns:1fr}
@@ -122,47 +138,63 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
     <p class="cap">Курсы маникюра, визажа и парикмахеров<br>Витебск / +375 (29) 711-34-16</p>
     <a class="go" href="#courses" id="go" aria-label="Смотреть курсы"><svg viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
   </section>
-  <div class="corner"><span>Листайте, чтобы идти по долине</span></div>
+  <div class="corner"><span>Листайте вниз</span></div>
 </div>
 </div>
 <div class="loader" id="loader"><span></span></div>
 <main class="page">
 <section class="sec" id="courses">
-  <div class="wrap split">
-    <div>
-      <p class="eyebrow">Курсы / цены с сайта</p>
-      <h2>Что можно пройти в Витебске</h2>
-      <p class="lede">Суммы и сроки взяты со страниц prokursy.by. Ближайший набор и точный график группы лучше уточнить по телефону.</p>
+  <div class="wrap">
+    <div class="courses-head">
+      <div>
+        <p class="eyebrow">Направления</p>
+        <h2>Курсы в учебном центре</h2>
+      </div>
+      <p class="lede">Телефон +375 (29) 711-34-16. Instagram bigoodi.school.by. Даты ближайших групп уточняйте по звонку.</p>
     </div>
-    <div class="menu">
-      <p class="group-title">Парикмахерское искусство</p>
-      <div class="mi"><div><b>Парикмахер 4 разряда</b><i>6 месяцев / с нуля / по 300 руб в месяц</i></div><em>1800 руб</em></div>
-      <div class="mi"><div><b>Парикмахер 5 разряда</b><i>1 месяц</i></div><em>900 руб</em></div>
-      <div class="mi"><div><b>Домашний парикмахер</b><i>4 месяца</i></div><em>1092 руб</em></div>
-      <div class="mi"><div><b>Парикмахер универсал</b><i>2 месяца</i></div><em>798 руб</em></div>
-      <p class="group-title">Маникюр и педикюр</p>
-      <div class="mi"><div><b>Мастер по маникюру 4 разряда</b><i>1,5 месяца</i></div><em>675 руб</em></div>
-      <div class="mi"><div><b>Мастер по педикюру 4 разряда</b><i>1,5 месяца</i></div><em>675 руб</em></div>
-      <div class="mi"><div><b>Мастер по маникюру и педикюру 4 разряда</b><i>3 месяца</i></div><em>810 руб</em></div>
-      <div class="mi"><div><b>Самозанятый мастер по маникюру</b><i>3 дня / группа 2–3 человека</i></div><em>450 руб</em></div>
-      <div class="mi"><div><b>Самозанятый мастер по педикюру</b><i>3 дня / группа 2–3 человека</i></div><em>420 руб</em></div>
-      <div class="mi"><div><b>Мастер экспресс маникюра</b><i>5 дней</i></div><em>540 руб</em></div>
-      <div class="mi"><div><b>Мастер экспресс педикюра</b><i>5 занятий</i></div><em>540 руб</em></div>
-      <div class="mi"><div><b>Мастер ногтевого сервиса</b><i>3 дня</i></div><em>495 руб</em></div>
-      <div class="mi"><div><b>PRO наращивание ногтей</b><i>4 недели / на материалах клиента</i></div><em>675 руб</em></div>
-      <div class="mi"><div><b>Маникюр и педикюр для себя</b><i>3 занятия / без трудоустройства</i></div><em>360 руб</em></div>
-      <p class="group-title">Визаж / брови / ресницы</p>
-      <div class="mi"><div><b>Визажист 4 разряда</b><i>2 месяца / Светлана Яцынович 900 руб / Дана Лизбанова 1125 руб</i></div><em>от 900 руб</em></div>
-      <div class="mi"><div><b>Визажист-стилист</b><i>2 месяца / на материалах клиента</i></div><em>765 руб</em></div>
-      <div class="mi"><div><b>Визаж для себя</b><i>3 занятия / на сайте две цены</i></div><em>450 или 540 руб</em></div>
-      <div class="mi"><div><b>Наращивание ресниц + основы 2D</b><i>2 дня / группа 630 руб / индивидуально 900 руб / Анна Коврик</i></div><em>630 руб</em></div>
-      <div class="mi"><div><b>Архитектура бровей</b><i>2 дня / Дана Исаева / сертификат о прохождении</i></div><em>495 руб</em></div>
-      <div class="mi"><div><b>Брови BAZA</b><i>2 дня / Светлана Яцынович</i></div><em>450 руб</em></div>
-      <p class="group-title">Косметик / массаж</p>
-      <div class="mi"><div><b>Косметик 4 разряда</b><i>3 месяца / день, вечер или выходные</i></div><em>2025 руб</em></div>
-      <div class="mi"><div><b>Косметик 5 разряда</b><i>2 месяца / нужен стаж от года</i></div><em>1665 руб</em></div>
-      <div class="mi"><div><b>Классический массаж</b><i>2 месяца / Мария Зуева</i></div><em>756 руб</em></div>
-      <p class="fine">На курсах с разрядом часто написано «гарантированное трудоустройство». Рассрочка: Халва, Карта покупок, Черепаха, на части направлений — от учебного центра. Семинаров и узких программ на сайте больше, чем в этом списке.</p>
+    <div class="grid">
+      <article class="card">
+        <span class="card__num">01</span>
+        <h3>Мастер по маникюру 4 разряда</h3>
+        <p>Базовый курс с нуля: классика, комбинированный маникюр, гель-лак.</p>
+        <div class="card__meta"><span class="card__dur">1,5 мес</span></div>
+        <a href="tel:+375297113416">Записаться <span aria-hidden="true">↗</span></a>
+      </article>
+      <article class="card">
+        <span class="card__num">02</span>
+        <h3>Маникюр и педикюр 4 разряда</h3>
+        <p>Полный курс мастера маникюра и педикюра с практикой на моделях.</p>
+        <div class="card__meta"><span class="card__dur">3 мес</span></div>
+        <a href="tel:+375297113416">Записаться <span aria-hidden="true">↗</span></a>
+      </article>
+      <article class="card">
+        <span class="card__num">03</span>
+        <h3>Самозанятый мастер по маникюру</h3>
+        <p>Интенсив на 3 дня: фрезер, комбинированный маникюр, гель-лак.</p>
+        <div class="card__meta"><span class="card__dur">3 дня</span></div>
+        <a href="tel:+375297113416">Записаться <span aria-hidden="true">↗</span></a>
+      </article>
+      <article class="card">
+        <span class="card__num">04</span>
+        <h3>Самозанятый мастер по педикюру</h3>
+        <p>Интенсив: комбинированный педикюр и покрытие гель-лак на моделях.</p>
+        <div class="card__meta"><span class="card__dur">3 дня</span></div>
+        <a href="tel:+375297113416">Записаться <span aria-hidden="true">↗</span></a>
+      </article>
+      <article class="card">
+        <span class="card__num">05</span>
+        <h3>Парикмахер 4 разряда</h3>
+        <p>Обучение с нуля: стрижки, укладки, окрашивание, химическая завивка.</p>
+        <div class="card__meta"><span class="card__dur">6 мес</span></div>
+        <a href="tel:+375297113416">Записаться <span aria-hidden="true">↗</span></a>
+      </article>
+      <article class="card">
+        <span class="card__num">06</span>
+        <h3>Парикмахер 5 разряда</h3>
+        <p>Повышение квалификации: колористика, модельные стрижки, причёски.</p>
+        <div class="card__meta"><span class="card__dur">1 мес</span></div>
+        <a href="tel:+375297113416">Записаться <span aria-hidden="true">↗</span></a>
+      </article>
     </div>
   </div>
 </section>
@@ -183,7 +215,7 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
       </div>
       <div>
         <h3>Что обещают к профкурсам</h3>
-        <p>На парикмахере 4 разряда: инструменты выдают, места оборудованы, материалы профессиональные, скидка 20% в магазине «БиGOODи». В подарок — курс «Лёгкий START» про аккаунт и оформление работы.</p>
+        <p>На парикмахере 4 разряда: инструменты выдают, места оборудованы, материалы профессиональные, в магазине «БиGOODи» есть скидка на материалы и инструменты. В подарок — курс «Лёгкий START» про аккаунт и оформление работы.</p>
       </div>
       <div>
         <h3>Документы</h3>
@@ -205,8 +237,8 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
       <div class="t-item"><div><h3>Инесса Шевченко</h3><p class="who">Косметик</p></div><p>Косметик 5 разряда, практика по программе «Косметик» и «Восковая депиляция». На странице курса указано: в профессии больше 15 лет.</p></div>
       <div class="t-item"><div><h3>Мария Зуева</h3><p class="who">Массаж</p></div><p>Врач, массажист со стажем 10 лет, косметик, мастер тейпирования. Победитель чемпионата Беларуси по spa-массажу (2015). Ведёт массаж и дневную/вечернюю группы косметика 4 разряда.</p></div>
       <div class="t-item"><div><h3>Анна Коврик</h3><p class="who">Ресницы</p></div><p>Мастер и преподаватель по наращиванию ресниц, brow-master, педагогическое образование. Стаж в бьюти больше 5 лет, преподавательский 3 года. Дипломант чемпионата 2018 в Минске.</p></div>
-      <div class="t-item"><div><h3>Светлана Яцынович</h3><p class="who">Визаж / брови</p></div><p>Автор курса «Брови BAZA» и тренер «Визажист 4 разряда» за 900 руб.</p></div>
-      <div class="t-item"><div><h3>Дана Исаева / Дана Лизбанова</h3><p class="who">Брови / визаж</p></div><p>Исаева ведёт «Архитектуру бровей». Лизбанова указана тренером визажа 4 разряда за 1125 руб. На сайте это два разных имени.</p></div>
+      <div class="t-item"><div><h3>Светлана Яцынович</h3><p class="who">Визаж / брови</p></div><p>Автор курса «Брови BAZA» и тренер «Визажист 4 разряда».</p></div>
+      <div class="t-item"><div><h3>Дана Исаева / Дана Лизбанова</h3><p class="who">Брови / визаж</p></div><p>Исаева ведёт «Архитектуру бровей». Лизбанова указана тренером визажа 4 разряда. На сайте это два разных имени.</p></div>
       <div class="t-item"><div><h3>Ольга Дикусарова</h3><p class="who">Косметик</p></div><p>Группа выходного дня на курсе косметика 4 разряда.</p></div>
       <div class="t-item"><div><h3>Татьяна Парфёнова</h3><p class="who">INSTA START</p></div><p>В блоке «Лёгкий START» названа практикующим SMM-специалистом и контентмейкером.</p></div>
     </div>
@@ -239,7 +271,7 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
       <div class="tl"><span>01</span><p>Позвоните Евгении: +375 (29) 711-34-16 или +375 (29) 511-34-16.</p></div>
       <div class="tl"><span>02</span><p>Приезжайте с паспортом в будни с 09:00 до 18:00, обед 13:00–14:00. На страницах курсов указан адрес: ул. Белорусская, 6Г, офис 7, 2 этаж.</p></div>
       <div class="tl"><span>03</span><p>Договор: паспорт, копия паспорта и 2 фото.</p></div>
-      <div class="tl"><span>04</span><p>Оплата или предоплата 20%. Дальше теория и практика. Есть утренние, дневные, вечерние группы и группы выходного дня — зависит от курса.</p></div>
+      <div class="tl"><span>04</span><p>Оплата или предоплата — условия лучше уточнить при записи. Дальше теория и практика. Есть утренние, дневные, вечерние группы и группы выходного дня — зависит от курса.</p></div>
     </div>
   </div>
 </section>
@@ -250,7 +282,6 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
     <h2>Коротко по фактам сайта</h2>
     <div class="qas">
       <div class="qa"><h3>Как записаться?</h3><p>Сначала телефон, затем визит с паспортом. На сайте есть страница записи с выбором времени: утро, день, выходной. Форму «мы вам перезвоним» здесь не ставим.</p></div>
-      <div class="qa"><h3>Есть ли рассрочка?</h3><p>Халва, Карта покупок, Черепаха. Парикмахер 4 разряда — по 300 руб в месяц. На косметике есть рассрочка от центра на время обучения.</p></div>
       <div class="qa"><h3>Нужны ли модели?</h3><p>На большинстве практических курсов да.</p></div>
       <div class="qa"><h3>Что с работой после учёбы?</h3><p>На разрядных курсах часто написано «гарантированное трудоустройство». Центр готовит мастеров и для своей сети. Как это устроено на конкретном направлении, стоит спросить у Евгении.</p></div>
       <div class="qa"><h3>Какой документ выдают?</h3><p>Сертификат указан на «Архитектуре бровей» и «PRO наращивании». По остальным программам формулировку нужно уточнить.</p></div>
@@ -280,7 +311,7 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
 </section>
 <footer class="wrap foot">
   <span>БиGOODи / Витебск</span>
-  <span>Макет по материалам prokursy.by / отзывов на сайте нет, поэтому их здесь нет</span>
+  <span>Учебный центр, Витебск</span>
 </footer>
 </main>
 
@@ -338,12 +369,8 @@ c+=(h(v+uT)-.5)*.035;float d=length((v-.5)*vec2(1.2,1.));c*=iss(.95-uS*.25,.25,d
 comp.addPass(vig);comp.addPass(new OutputPass());
 let prog=.02,target=.02,speed=1,spT=1,disp=0,dT=0,mx=0,my=0,smx=0,smy=0,last=performance.now(),vel=0,intro=0;
 addEventListener('wheel',e=>{
-  const atTop=scrollY<4;
-  if(!atTop){return}
-  if(e.deltaY>0 && target>=.9){return}
-  e.preventDefault();
   target+=e.deltaY*.00004;
-},{passive:false});
+},{passive:true});
 let ty=null;addEventListener('touchstart',e=>ty=e.touches[0].clientY,{passive:true});
 addEventListener('touchmove',e=>{
   const y=e.touches[0].clientY;
