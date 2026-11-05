@@ -113,6 +113,42 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
 @media (max-width:900px){.grid{grid-template-columns:1fr 1fr}}
 @media (max-width:720px){.grid{grid-template-columns:1fr}}
 
+
+.slider-head{margin-bottom:8px}
+.slider-nav{display:flex;gap:8px;justify-content:flex-end;margin:18px 0 14px}
+.sl-prev,.sl-next{
+  width:44px;height:44px;border:1px solid var(--cream);background:transparent;color:var(--cream);cursor:pointer;
+  display:grid;place-items:center;
+  transition:background .3s cubic-bezier(.215,.61,.355,1),color .3s cubic-bezier(.215,.61,.355,1);
+}
+.sl-prev:hover,.sl-next:hover{background:var(--cream);color:#151510}
+.sl-prev:focus-visible,.sl-next:focus-visible,.slider-track:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
+.slider-track{
+  display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;-webkit-overflow-scrolling:touch;
+  cursor:grab;scrollbar-width:none;
+}
+.slider-track::-webkit-scrollbar{display:none}
+.slider-track.is-drag{scroll-behavior:auto;cursor:grabbing}
+.slide{
+  flex:0 0 calc((100% - 16px) / 2);scroll-snap-align:start;
+  display:grid;grid-template-rows:auto 1fr;min-height:340px;
+  border:1px solid rgba(245,239,226,.16);
+}
+.slide-visual{
+  display:grid;place-items:center;min-height:170px;background:#12110e;
+}
+.slide-visual span{
+  font:300 72px/.9 Oswald,"Arial Narrow",sans-serif;letter-spacing:-.04em;color:var(--cream);
+}
+.slide-body{padding:22px 22px 24px}
+.slide-body h3{font-size:22px;font-weight:500;letter-spacing:-.02em}
+.slide-body .role{font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:.6;margin:6px 0 10px}
+.slide-body p{font-size:15px;line-height:1.5;color:#e6decc}
+@media (max-width:720px){
+  .slide{flex-basis:100%}
+}
+
 .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;padding:0 0 48px;font-size:13px;opacity:.55}
 @media(max-width:900px){
   .split,.columns,.contact,.t-item{grid-template-columns:1fr}
@@ -148,7 +184,7 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
     <div class="courses-head">
       <div>
         <p class="eyebrow">Направления</p>
-        <h2>Курсы в учебном центре</h2>
+        <h2>Наши курсы</h2>
       </div>
       <p class="lede">Телефон +375 (29) 711-34-16. Instagram bigoodi.school.by. Даты ближайших групп уточняйте по звонку.</p>
     </div>
@@ -203,15 +239,15 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
   <div class="wrap">
     <p class="eyebrow">Школа</p>
     <h2>Центр при сети «БиGOODи»</h2>
-    <p class="lede">Учебный центр ведёт ЧТПУП «БелОксиС». На сайте сказано, что школа больше 15 лет работает в сфере красоты и готовит мастеров для сети парикмахерских «БиGOODи», а также по заявкам предприятий.</p>
+    <p class="lede">Мы работаем в Витебске больше 15 лет. Готовим мастеров для сети парикмахерских «БиGOODи» и по заявкам предприятий. Учебный центр ведёт ЧТПУП «БелОксиС».</p>
     <div class="columns">
       <div>
         <h3>Как учат</h3>
-        <p>Теория и практика на моделях. На курсах косметика и классического массажа практика указана около 70%. На многих программах модели нужно приводить с собой.</p>
+        <p>Теория и практика на моделях. На курсах косметика и классического массажа практика составляет около 70%. На многих программах модели нужно привести с собой.</p>
       </div>
       <div>
         <h3>Форматы</h3>
-        <p>Есть длинные курсы с разрядом и короткие интенсивы. Для действующих мастеров заявлены повышение квалификации, семинары и мастер-классы.</p>
+        <p>Есть длинные курсы с разрядом и короткие интенсивы. Для действующих мастеров проводим повышение квалификации, семинары и мастер-классы.</p>
       </div>
       <div>
         <h3>Что обещают к профкурсам</h3>
@@ -219,37 +255,129 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
       </div>
       <div>
         <h3>Документы</h3>
-        <p>Сертификат о прохождении прямо указан на «Архитектуре бровей» и на «PRO наращивании». Какой документ выдают после разрядных программ, лучше спросить при записи: на странице «О нас» есть юридическая оговорка про присвоение разрядов.</p>
+        <p>После «Архитектуры бровей» и «PRO наращивания» выдаём сертификат. Какой документ будет после разрядной программы, расскажем при записи.</p>
       </div>
     </div>
   </div>
 </section>
 
 <section class="sec" id="teachers">
-  <div class="wrap">
-    <p class="eyebrow">Преподаватели</p>
-    <h2>Имена с сайта школы</h2>
-    <p class="lede">Портретов преподавателей на prokursy.by нет. Ниже только то, что написано о них на страницах центра.</p>
-    <div class="t-list">
-      <div class="t-item"><div><h3>Евгения Шевченко</h3><p class="who">Директор</p></div><p>Директор учебного центра и сети парикмахерских «БиGOODи». Ведёт BUSINESS START. На сайте перечислены семинары по управлению салоном, продажам, учёба в бизнес-школе ИПМ.</p></div>
-      <div class="t-item"><div><h3>Ольга Седловская</h3><p class="who">Ногтевой сервис</p></div><p>8 лет преподавания, мастер 5 разряда, инструктор RuNail. Стажировки в школах Шанской, Соловьёвой, Грищенко и Финько, студии Сакелари. Призёр «Розы ветров» и чемпионата Беларуси по моделированию ногтей.</p></div>
-      <div class="t-item"><div><h3>Евгения Сивакова</h3><p class="who">Парикмахер</p></div><p>Парикмахер 4 разряда, технолог Constant Delight и Nexxt. В новостях центра — гранд-технолог CD, дипломант международного конкурса, повышение квалификации в Италии и Турции.</p></div>
-      <div class="t-item"><div><h3>Инесса Шевченко</h3><p class="who">Косметик</p></div><p>Косметик 5 разряда, практика по программе «Косметик» и «Восковая депиляция». На странице курса указано: в профессии больше 15 лет.</p></div>
-      <div class="t-item"><div><h3>Мария Зуева</h3><p class="who">Массаж</p></div><p>Врач, массажист со стажем 10 лет, косметик, мастер тейпирования. Победитель чемпионата Беларуси по spa-массажу (2015). Ведёт массаж и дневную/вечернюю группы косметика 4 разряда.</p></div>
-      <div class="t-item"><div><h3>Анна Коврик</h3><p class="who">Ресницы</p></div><p>Мастер и преподаватель по наращиванию ресниц, brow-master, педагогическое образование. Стаж в бьюти больше 5 лет, преподавательский 3 года. Дипломант чемпионата 2018 в Минске.</p></div>
-      <div class="t-item"><div><h3>Светлана Яцынович</h3><p class="who">Визаж / брови</p></div><p>Автор курса «Брови BAZA» и тренер «Визажист 4 разряда».</p></div>
-      <div class="t-item"><div><h3>Дана Исаева / Дана Лизбанова</h3><p class="who">Брови / визаж</p></div><p>Исаева ведёт «Архитектуру бровей». Лизбанова указана тренером визажа 4 разряда. На сайте это два разных имени.</p></div>
-      <div class="t-item"><div><h3>Ольга Дикусарова</h3><p class="who">Косметик</p></div><p>Группа выходного дня на курсе косметика 4 разряда.</p></div>
-      <div class="t-item"><div><h3>Татьяна Парфёнова</h3><p class="who">INSTA START</p></div><p>В блоке «Лёгкий START» названа практикующим SMM-специалистом и контентмейкером.</p></div>
+    <div class="wrap">
+      <div class="slider-head">
+        <div>
+          <p class="eyebrow">Преподаватели</p>
+          <h2>Наши преподаватели</h2>
+          <p class="lede">Практикующие мастера и педагоги: ставим руку на моделях и разбираем теорию.</p>
+        </div>
+      </div>
+      <div class="slider" data-slider>
+        <div class="slider-nav">
+          <button type="button" class="sl-prev" aria-label="Предыдущий преподаватель">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button type="button" class="sl-next" aria-label="Следующий преподаватель">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="slider-track" tabindex="0" role="region" aria-label="Наши преподаватели">
+        <article class="slide">
+          <div class="slide-visual" aria-hidden="true"><span>ЕШ</span></div>
+          <div class="slide-body">
+            <h3>Евгения Шевченко</h3>
+            <p class="role">Директор учебного центра и сети «БиGOODи»</p>
+            <p>Ведёт курс BUSINESS START: как устроить работу салона, продажи и оформление бизнеса. Проходила семинары по управлению персоналом, телефонным продажам и обучение в бизнес-школе ИПМ.</p>
+          </div>
+        </article>
+        <article class="slide">
+          <div class="slide-visual" aria-hidden="true"><span>ОС</span></div>
+          <div class="slide-body">
+            <h3>Ольга Седловская</h3>
+            <p class="role">Маникюр, педикюр, моделирование ногтей</p>
+            <p>Преподаёт 8 лет, мастер 5 разряда, инструктор RuNail. Стажировалась в школах Елены Шанской, Татьяны Соловьёвой, Татьяны Грищенко и Александра Финько, в студии Сакелари. Лауреат и призёр конкурсов «Роза ветров» и чемпионата Беларуси по моделированию ногтей.</p>
+          </div>
+        </article>
+        <article class="slide">
+          <div class="slide-visual" aria-hidden="true"><span>ЕС</span></div>
+          <div class="slide-body">
+            <h3>Евгения Сивакова</h3>
+            <p class="role">Парикмахерское искусство</p>
+            <p>Парикмахер 4 разряда, технолог Constant Delight и Nexxt, гранд-технолог CD, дипломант международного конкурса. Повышение квалификации в Италии (2019) и Турции (2020).</p>
+          </div>
+        </article>
+        <article class="slide">
+          <div class="slide-visual" aria-hidden="true"><span>ИШ</span></div>
+          <div class="slide-body">
+            <h3>Инесса Шевченко</h3>
+            <p class="role">Косметик, восковая депиляция</p>
+            <p>Косметик 5 разряда. Ведёт практику по программе «Косметик» и курс «Восковая депиляция». В профессии больше 15 лет.</p>
+          </div>
+        </article>
+        <article class="slide">
+          <div class="slide-visual" aria-hidden="true"><span>МЗ</span></div>
+          <div class="slide-body">
+            <h3>Мария Зуева</h3>
+            <p class="role">Массаж, косметик 4 разряда</p>
+            <p>Врач, массажист со стажем 10 лет, косметик, мастер тейпирования, основатель spa-студии. Победитель чемпионата Беларуси по spa-массажу (2015). Ведёт массаж и дневную и вечернюю группы косметика 4 разряда.</p>
+          </div>
+        </article>
+        <article class="slide">
+          <div class="slide-visual" aria-hidden="true"><span>АК</span></div>
+          <div class="slide-body">
+            <h3>Анна Коврик</h3>
+            <p class="role">Наращивание ресниц, brow</p>
+            <p>Практикующий мастер с педагогическим образованием. Стаж в бьюти больше 5 лет, преподавательский — 3 года. Дипломант международного чемпионата по наращиванию ресниц 2018 года в Минске.</p>
+          </div>
+        </article>
+        <article class="slide">
+          <div class="slide-visual" aria-hidden="true"><span>СЯ</span></div>
+          <div class="slide-body">
+            <h3>Светлана Яцынович</h3>
+            <p class="role">Визаж, брови</p>
+            <p>Автор курса «Брови BAZA» и тренер программы «Визажист 4 разряда».</p>
+          </div>
+        </article>
+        <article class="slide">
+          <div class="slide-visual" aria-hidden="true"><span>ДИ</span></div>
+          <div class="slide-body">
+            <h3>Дана Исаева</h3>
+            <p class="role">Брови</p>
+            <p>Ведёт курс «Архитектура бровей».</p>
+          </div>
+        </article>
+        <article class="slide">
+          <div class="slide-visual" aria-hidden="true"><span>ДЛ</span></div>
+          <div class="slide-body">
+            <h3>Дана Лизбанова</h3>
+            <p class="role">Визаж</p>
+            <p>Ведёт программу «Визажист 4 разряда».</p>
+          </div>
+        </article>
+        <article class="slide">
+          <div class="slide-visual" aria-hidden="true"><span>ОД</span></div>
+          <div class="slide-body">
+            <h3>Ольга Дикусарова</h3>
+            <p class="role">Косметик 4 разряда</p>
+            <p>Ведёт группу выходного дня на курсе косметика 4 разряда.</p>
+          </div>
+        </article>
+        <article class="slide">
+          <div class="slide-visual" aria-hidden="true"><span>ТП</span></div>
+          <div class="slide-body">
+            <h3>Татьяна Парфёнова</h3>
+            <p class="role">INSTA START</p>
+            <p>Ведёт INSTA START в курсе «Лёгкий START»: практикующий SMM-специалист и контентмейкер.</p>
+          </div>
+        </article>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
 <section class="sec" id="rooms">
   <div class="wrap">
     <p class="eyebrow">Кабинеты</p>
     <h2>Где проходят занятия</h2>
-    <p class="lede">Снимки с главной сайта школы. Галереи работ учеников там нет — если появятся фото срезов, макияжа и причёсок, их логично поставить отдельной лентой.</p>
+    <p class="lede">Так выглядят наши учебные кабинеты.</p>
     <div class="gallery">
       <img class="a" src="assets/bigoodi15202209.jpg" alt="Учебный зал с зеркалами и креслами" width="1266" height="844">
       <img src="assets/bigoodi19202209.jpg" alt="Кабинет с общим столом" width="1266" height="844">
@@ -257,7 +385,7 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
       <img src="assets/bigoodi23202209.jpg" alt="Теоретический класс с доской" width="1266" height="844">
       <img src="assets/bigoodi21202209.jpg" alt="Класс с партами и лампами" width="1266" height="844">
     </div>
-    <p class="gcap">Фото учебных кабинетов / prokursy.by</p>
+    <p class="gcap">Наши учебные кабинеты</p>
   </div>
 </section>
 
@@ -265,13 +393,13 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
   <div class="wrap split">
     <div>
       <p class="eyebrow">Как учиться</p>
-      <h2>Четыре шага, как на страницах курсов</h2>
+      <h2>Как попасть на курс</h2>
     </div>
     <div class="timeline">
       <div class="tl"><span>01</span><p>Позвоните Евгении: +375 (29) 711-34-16 или +375 (29) 511-34-16.</p></div>
-      <div class="tl"><span>02</span><p>Приезжайте с паспортом в будни с 09:00 до 18:00, обед 13:00–14:00. На страницах курсов указан адрес: ул. Белорусская, 6Г, офис 7, 2 этаж.</p></div>
+      <div class="tl"><span>02</span><p>Приезжайте с паспортом в будни с 09:00 до 18:00, обед 13:00–14:00. Ждём вас на ул. Белорусской, 6Г, офис 7, 2 этаж.</p></div>
       <div class="tl"><span>03</span><p>Договор: паспорт, копия паспорта и 2 фото.</p></div>
-      <div class="tl"><span>04</span><p>Оплата или предоплата — условия лучше уточнить при записи. Дальше теория и практика. Есть утренние, дневные, вечерние группы и группы выходного дня — зависит от курса.</p></div>
+      <div class="tl"><span>04</span><p>Оплата или предоплата — условия расскажем при записи. Дальше теория и практика. Есть утренние, дневные, вечерние группы и группы выходного дня — зависит от курса.</p></div>
     </div>
   </div>
 </section>
@@ -279,13 +407,13 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
 <section class="sec" id="faq">
   <div class="wrap">
     <p class="eyebrow">Вопросы</p>
-    <h2>Коротко по фактам сайта</h2>
+    <h2>Частые вопросы</h2>
     <div class="qas">
-      <div class="qa"><h3>Как записаться?</h3><p>Сначала телефон, затем визит с паспортом. На сайте есть страница записи с выбором времени: утро, день, выходной. Форму «мы вам перезвоним» здесь не ставим.</p></div>
+      <div class="qa"><h3>Как записаться?</h3><p>Позвоните, затем приезжайте с паспортом. Можно выбрать утро, день или выходной.</p></div>
       <div class="qa"><h3>Нужны ли модели?</h3><p>На большинстве практических курсов да.</p></div>
-      <div class="qa"><h3>Что с работой после учёбы?</h3><p>На разрядных курсах часто написано «гарантированное трудоустройство». Центр готовит мастеров и для своей сети. Как это устроено на конкретном направлении, стоит спросить у Евгении.</p></div>
-      <div class="qa"><h3>Какой документ выдают?</h3><p>Сертификат указан на «Архитектуре бровей» и «PRO наращивании». По остальным программам формулировку нужно уточнить.</p></div>
-      <div class="qa"><h3>Почему на сайте разные адреса?</h3><p>Курсы: ул. Белорусская, 6Г, офис 7, 2 этаж. Подвал сайта: ул. Белорусская, 6а, офис 16, 3 этаж. Страница «Контакты»: ул. Зеньковой, 1, офис 3г/6, 4 этаж. Актуальную точку для визита лучше подтвердить звонком.</p></div>
+      <div class="qa"><h3>Что с работой после учёбы?</h3><p>На курсах с разрядом помогаем с трудоустройством, в том числе в сеть «БиGOODи». Как это устроено на выбранном направлении, расскажем при записи.</p></div>
+      <div class="qa"><h3>Какой документ выдают?</h3><p>После «Архитектуры бровей» и «PRO наращивания» выдаём сертификат. По остальным программам документ уточним при записи.</p></div>
+      <div class="qa"><h3>Где вы находитесь?</h3><p>Для записи приезжайте на ул. Белорусскую, 6Г, офис 7, 2 этаж. Также в наших контактах встречаются ул. Белорусская, 6а, офис 16 и ул. Зеньковой, 1, офис 3г/6. Актуальный адрес лучше подтвердить по телефону.</p></div>
     </div>
   </div>
 </section>
@@ -298,13 +426,13 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
       <p class="lede">Будни 09:00–18:00, обед 13:00–14:00. Суббота и воскресенье — выходные.</p>
       <a class="big" href="tel:+375297113416">+375 (29) 711-34-16</a>
       <a class="big" href="tel:+375295113416">+375 (29) 511-34-16</a>
-      <p class="fine">Магазин «БиGOODи»: +375 (29) 210-25-05. Почта: <a href="mailto:beloksis@mail.ru">beloksis@mail.ru</a> / <a href="mailto:Eugenia_beloksis@mail.ru">Eugenia_beloksis@mail.ru</a>. В анонсах школы встречается Instagram bigoodi.school.by.</p>
+      <p class="fine">Магазин «БиGOODи»: +375 (29) 210-25-05. Почта: <a href="mailto:beloksis@mail.ru">beloksis@mail.ru</a> / <a href="mailto:Eugenia_beloksis@mail.ru">Eugenia_beloksis@mail.ru</a>. Мы в Instagram: bigoodi.school.by.</p>
       <a class="ghost" href="tel:+375297113416">Позвонить</a>
     </div>
     <div class="addr-block">
-      <p><strong>Для записи, как на курсах</strong>Витебск, ул. Белорусская, 6Г, офис 7, 2 этаж<br><a href="https://yandex.by/maps/?text=%D0%92%D0%B8%D1%82%D0%B5%D0%B1%D1%81%D0%BA%20%D1%83%D0%BB.%20%D0%91%D0%B5%D0%BB%D0%BE%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%B0%D1%8F%206%D0%93" target="_blank" rel="noopener">Открыть карту</a></p>
-      <p><strong>В подвале сайта</strong>ул. Белорусская, 6а, офис 16, 3 этаж</p>
-      <p><strong>Страница «Контакты»</strong>ул. Зеньковой, 1, офис 3г/6, 4 этаж</p>
+      <p><strong>Для записи</strong>Витебск, ул. Белорусская, 6Г, офис 7, 2 этаж<br><a href="https://yandex.by/maps/?text=%D0%92%D0%B8%D1%82%D0%B5%D0%B1%D1%81%D0%BA%20%D1%83%D0%BB.%20%D0%91%D0%B5%D0%BB%D0%BE%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%B0%D1%8F%206%D0%93" target="_blank" rel="noopener">Открыть карту</a></p>
+      <p><strong>Ещё один адрес</strong>ул. Белорусская, 6а, офис 16, 3 этаж</p>
+      <p><strong>Ещё один адрес</strong>ул. Зеньковой, 1, офис 3г/6, 4 этаж</p>
       <p><strong>Реквизиты</strong>ЧТПУП «БелОксиС» / УНН 391261401<br>Факс: 8 0212 35-98-01</p>
     </div>
   </div>
@@ -399,6 +527,50 @@ intro+=dt;if(!shown&&intro>.6){shown=true;ui.classList.add('on')}
 if(scrollY<innerHeight*1.15){comp.render()}requestAnimationFrame(frame)}
 requestAnimationFrame(t=>{last=t;document.getElementById('loader').classList.add('gone');frame(t)});
 window.__ready=true;
+</script>
+<script>
+(function(){
+  const ease = 'smooth';
+  document.querySelectorAll('[data-slider]').forEach((root) => {
+    const track = root.querySelector('.slider-track');
+    const prev = root.querySelector('.sl-prev');
+    const next = root.querySelector('.sl-next');
+    if (!track) return;
+    const step = () => {
+      const slide = track.querySelector('.slide');
+      if (!slide) return 0;
+      const styles = getComputedStyle(track);
+      const gap = parseFloat(styles.columnGap || styles.gap) || 16;
+      return slide.getBoundingClientRect().width + gap;
+    };
+    const go = (dir) => {
+      track.scrollBy({ left: dir * step(), behavior: ease });
+    };
+    prev && prev.addEventListener('click', () => go(-1));
+    next && next.addEventListener('click', () => go(1));
+    track.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+    });
+    let down = false, sx = 0, sl = 0, dragged = false;
+    track.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'touch') return;
+      down = true; dragged = false; sx = e.clientX; sl = track.scrollLeft;
+      track.classList.add('is-drag');
+      track.setPointerCapture(e.pointerId);
+    });
+    track.addEventListener('pointermove', (e) => {
+      if (!down) return;
+      const dx = e.clientX - sx;
+      if (Math.abs(dx) > 4) dragged = true;
+      track.scrollLeft = sl - dx;
+    });
+    const stop = () => { down = false; track.classList.remove('is-drag'); };
+    track.addEventListener('pointerup', stop);
+    track.addEventListener('pointercancel', stop);
+    track.addEventListener('lostpointercapture', stop);
+  });
+})();
 </script>
 </body>
 </html>
