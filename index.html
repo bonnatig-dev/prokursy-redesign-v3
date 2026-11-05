@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>БиGOODи / учебный центр, Витебск</title>
+<meta name="description" content="Курсы маникюра, визажа, парикмахеров и косметологии в Витебске.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Manrope:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--u:min(calc(100vw/1600),calc(100vh/900));--cream:#f5efe2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#000;overflow:hidden}
+body{color:var(--cream);font-family:Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+#valley{position:fixed;inset:0}
+#valley:after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(52% 34% at 50% 50%,rgba(0,0,0,.55),rgba(0,0,0,0) 75%)}
+#valley canvas{display:block;width:100%!important;height:100%!important}
+.ui{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity 1.6s ease}
+.ui.on{opacity:1}
+.ui a{pointer-events:auto}
+header{position:absolute;left:0;right:0;top:0;display:flex;align-items:center;justify-content:space-between;padding:calc(24*var(--u)) calc(44*var(--u)) 0}
+.logo{font-size:calc(26*var(--u));font-weight:500;letter-spacing:-.02em}
+nav{display:flex;align-items:center;gap:calc(44*var(--u));font-size:calc(14.5*var(--u));font-weight:500;letter-spacing:.16em;text-transform:uppercase}
+nav a:not(.pill){transition:opacity .3s cubic-bezier(.215,.61,.355,1)}nav a:not(.pill):hover{opacity:.6}
+.pill{display:inline-flex;align-items:center;height:calc(46*var(--u));padding:0 calc(26*var(--u));border-radius:99px;background:var(--cream);color:#151510;transition:transform .3s}
+.pill:hover{transform:translateY(-1px)}
+.hero{position:absolute;left:0;right:0;top:50%;transform:translateY(-46%);display:flex;flex-direction:column;align-items:center;text-align:center}
+h1{font:300 calc(158*var(--u))/.92 Oswald,"Arial Narrow",sans-serif;letter-spacing:-.012em;white-space:nowrap}
+.cap{margin-top:calc(48*var(--u));font-size:calc(20*var(--u));line-height:1.3}
+.go{display:grid;place-items:center;margin-top:calc(34*var(--u));width:calc(58*var(--u));height:calc(58*var(--u));border:1.5px solid var(--cream);border-radius:50%;transition:background .3s,color .3s}
+.go:hover{background:var(--cream);color:#151510}
+.go svg{width:calc(22*var(--u));height:calc(22*var(--u));fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.corner{position:absolute;right:calc(44*var(--u));bottom:calc(44*var(--u));display:flex;align-items:center;font-size:calc(12.5*var(--u));font-weight:500;letter-spacing:.16em;text-transform:uppercase}
+.loader{position:fixed;inset:0;z-index:3;display:grid;place-items:center;background:#000;transition:opacity 1s ease;pointer-events:none}
+.loader.gone{opacity:0}
+.loader span{width:calc(9*var(--u));height:calc(9*var(--u));min-width:6px;min-height:6px;border-radius:50%;background:var(--cream);animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(.4);opacity:.4}}
+a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
+@media (max-width:820px){
+  :root{--u:1px}
+  header{padding:18px 18px 0}
+  nav a:not(.pill){display:none}
+  .pill{height:40px;padding:0 18px;font-size:12px}
+  .hero{left:20px;right:20px}
+  h1{font-size:clamp(64px,19vw,96px);white-space:normal}
+  .cap{font-size:17px}
+  .corner{left:20px;right:20px;bottom:30px;justify-content:center;font-size:11px}
+}
+@media (prefers-reduced-motion:reduce){.loader span{animation:none}}
+</style>
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body>
+<div id="valley" aria-hidden="true"></div>
+<div class="ui" id="ui">
+  <header>
+    <a class="logo" href="#">БиGOODи</a>
+    <nav aria-label="Главное"><a href="#">Курсы</a><a href="#">Цены</a><a href="#">Контакты</a><a class="pill" href="tel:+375297113416">Записаться</a></nav>
+  </header>
+  <section class="hero">
+    <h1>Расти в профессии.</h1>
+    <p class="cap">Курсы маникюра, визажа и парикмахеров<br>Витебск / +375 (29) 711-34-16</p>
+    <a class="go" href="#" id="go" aria-label="Смотреть курсы"><svg viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+  </section>
+  <div class="corner"><span>Листайте, чтобы идти по долине</span></div>
+</div>
+<div class="loader" id="loader"><span></span></div>
+<script type="module">
+import * as THREE from 'three';
+import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
+import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
+import {UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js';
+import {ShaderPass} from 'three/addons/postprocessing/ShaderPass.js';
+import {OutputPass} from 'three/addons/postprocessing/OutputPass.js';
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const box=document.getElementById('valley');
+const R=new THREE.WebGLRenderer({antialias:false,powerPreference:'high-performance'});
+R.setPixelRatio(Math.min(devicePixelRatio,1.75));R.setSize(innerWidth,innerHeight);R.setClearColor(0);box.appendChild(R.domElement);
+const scene=new THREE.Scene();
+const cam=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,400);
+const H=(x,z)=>Math.sin(x*.045)*3.2+Math.cos(z*.035)*2.6+Math.sin((x+z)*.11)*.8;
+const L=420,path=new THREE.CatmullRomCurve3(Array.from({length:12},(_,i)=>new THREE.Vector3(Math.sin(i*.9)*14,0,-i*L/11)));
+const N=innerWidth<820?26000:48000;
+const pos=new Float32Array(N*3),col=new Float32Array(N*3),rnd=new Float32Array(N*4);
+const pal=[0xff8fb3,0xffb199,0xf5efe2,0xff6f9a,0xffd2c2,0xe98fd0].map(c=>new THREE.Color(c));
+for(let i=0;i<N;i++){const t=Math.random(),p=path.getPointAt(t);const x=p.x+(Math.random()-.5)*110,z=p.z+(Math.random()-.5)*40;
+pos.set([x,H(x,z)-6+Math.random()*.6,z],i*3);const leaf=Math.random()<.35;const c=leaf?new THREE.Color(0x3a4a3c).lerp(new THREE.Color(0x8a5a6a),Math.random()*.5):pal[i%pal.length];
+col.set([c.r,c.g,c.b],i*3);rnd.set([Math.random(),Math.random(),leaf?1:0,Math.random()],i*4);}
+const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setAttribute('color',new THREE.BufferAttribute(col,3));g.setAttribute('rnd',new THREE.BufferAttribute(rnd,4));
+const U={uT:{value:0},uM:{value:new THREE.Vector2(9,9)},uD:{value:0},uPR:{value:R.getPixelRatio()},uA:{value:innerWidth/innerHeight}};
+const mat=new THREE.ShaderMaterial({uniforms:U,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,
+vertexShader:`float iss(float a,float b,float x){return 1.-smoothstep(b,a,x);}
+attribute vec3 color;attribute vec4 rnd;uniform float uT,uD,uPR,uA;uniform vec2 uM;varying vec3 vC;varying float vG,vL,vR,vF;
+void main(){vec3 p=position;p.y+=sin(uT*.8+rnd.x*30.)*.08;
+vec3 dir=normalize(vec3(rnd.x-.5,rnd.y*.9+.2,rnd.w-.5));p+=dir*uD*(4.+rnd.y*10.)+vec3(0.,sin(uT*.6+rnd.w*20.)*uD*1.5,0.);
+vec4 mv=modelViewMatrix*vec4(p,1.);vec4 cp=projectionMatrix*mv;vec2 nd=cp.xy/cp.w;vec2 d=(nd-uM)*vec2(uA,1.);float l=length(d);
+float push=iss(.35,0.,l);if(cp.w>0.){nd+=normalize(d+1e-4)/vec2(uA,1.)*push*.12;cp.xy=nd*cp.w;}
+float dist=-mv.z;float bloom=iss(70.,8.,dist);float sz=rnd.z>.5?mix(.6,1.2,iss(80.,30.,dist)):mix(.25,1.,bloom);
+sz*=mix(1.,.45,uD);gl_PointSize=(1.+rnd.y*1.6)*sz*uPR*260./dist;gl_Position=cp;
+vC=color;vG=push;vL=rnd.z;vR=rnd.x*6.28;vF=iss(170.,40.,dist)*smoothstep(.5,3.,dist);}`,
+fragmentShader:`float iss(float a,float b,float x){return 1.-smoothstep(b,a,x);}
+uniform float uD;varying vec3 vC;varying float vG,vL,vR,vF;
+void main(){vec2 q=gl_PointCoord-.5;float r=length(q);float a=atan(q.y,q.x)+vR;float pet=.3+.08*cos(a*5.)+.03*cos(a*10.);
+float f=vL>.5?iss(.5,.2,r)*.5:iss(pet,pet-.12,r)+iss(.12,0.,r)*.9;
+f=mix(f,iss(.5,0.,r),uD);vec3 c=vC*(.38+vG*1.8)+vec3(1.,.85,.8)*iss(.1,0.,r)*(1.-vL)*.6;
+float al=f*vF*(vL>.5?.4:.7);if(al<.01)discard;gl_FragColor=vec4(c*al,al);}`});
+scene.add(new THREE.Points(g,mat));
+// dust
+const DN=1500,dp=new Float32Array(DN*3);for(let i=0;i<DN;i++)dp.set([(Math.random()-.5)*80,Math.random()*20-4,-Math.random()*L],i*3);
+const dg=new THREE.BufferGeometry();dg.setAttribute('position',new THREE.BufferAttribute(dp,3));
+const dust=new THREE.Points(dg,new THREE.PointsMaterial({color:0xffd9cc,size:.08,transparent:true,opacity:.5,blending:THREE.AdditiveBlending,depthWrite:false}));scene.add(dust);
+const comp=new EffectComposer(R);comp.addPass(new RenderPass(scene,cam));
+const bloom=new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),.75,.5,.28);comp.addPass(bloom);
+const vig=new ShaderPass({uniforms:{tDiffuse:{value:null},uS:{value:0},uT:{value:0}},vertexShader:`varying vec2 v;void main(){v=uv;gl_Position=vec4(position.xy,0.,1.);}`,
+fragmentShader:`float iss(float a,float b,float x){return 1.-smoothstep(b,a,x);}
+uniform sampler2D tDiffuse;uniform float uS,uT;varying vec2 v;float h(vec2 p){return fract(sin(dot(p,vec2(12.9,78.2)))*43758.5);}
+void main(){vec2 o=(v-.5)*.0025;vec3 c=vec3(texture2D(tDiffuse,v+o).r,texture2D(tDiffuse,v).g,texture2D(tDiffuse,v-o).b);
+c+=(h(v+uT)-.5)*.035;float d=length((v-.5)*vec2(1.2,1.));c*=iss(.95-uS*.25,.25,d);gl_FragColor=vec4(c,1.);}`});
+comp.addPass(vig);comp.addPass(new OutputPass());
+let prog=.02,target=.02,speed=1,spT=1,disp=0,dT=0,mx=0,my=0,smx=0,smy=0,last=performance.now(),vel=0,intro=0;
+addEventListener('wheel',e=>{target+=e.deltaY*.00004},{passive:true});
+let ty=null;addEventListener('touchstart',e=>ty=e.touches[0].clientY,{passive:true});
+addEventListener('touchmove',e=>{const y=e.touches[0].clientY;target+=(ty-y)*.00004*20/10;ty=y},{passive:true});
+addEventListener('pointermove',e=>{mx=e.clientX/innerWidth*2-1;my=-(e.clientY/innerHeight*2-1)});
+const go=document.getElementById('go');
+go.addEventListener('pointerenter',()=>{spT=0;dT=1});go.addEventListener('pointerleave',()=>{spT=1;dT=0});
+window.__hover=v=>{spT=v?0:1;dT=v?1:0};
+addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();R.setSize(innerWidth,innerHeight);comp.setSize(innerWidth,innerHeight);U.uA.value=cam.aspect});
+const ui=document.getElementById('ui');let shown=false;
+const tmp=new THREE.Vector3();
+function frame(now){const dt=Math.min((now-last)/1000,.05);last=now;U.uT.value=now/1000;vig.uniforms.uT.value=now%1000;
+speed+=(spT-speed)*dt*2;disp+=(dT-disp)*dt*1.8;U.uD.value=disp*disp*(3-2*disp);
+if(!reduce)target+=.0009*dt*speed;target=Math.min(Math.max(target,0),.94);
+const pp=prog;prog+=(target-prog)*dt*3*Math.max(speed,.05);vel+=(Math.abs(prog-pp)/dt*40-vel)*dt*3;vig.uniforms.uS.value=Math.min(vel,1);
+smx+=(mx-smx)*dt*3;smy+=(my-smy)*dt*3;U.uM.value.set(mx,my);
+const p=path.getPointAt(prog);p.y=H(p.x,p.z)-1.2;cam.position.copy(p);
+const ahead=path.getPointAt(Math.min(prog+.03,1));tmp.set(ahead.x+smx*4,H(ahead.x,ahead.z)-3.2+smy*2,ahead.z);cam.lookAt(tmp);
+intro+=dt;if(!shown&&intro>.6){shown=true;ui.classList.add('on')}
+comp.render();requestAnimationFrame(frame)}
+requestAnimationFrame(t=>{last=t;document.getElementById('loader').classList.add('gone');frame(t)});
+window.__ready=true;
+</script>
+</body>
+</html>
