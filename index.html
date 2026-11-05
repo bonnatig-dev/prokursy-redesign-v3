@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Manrope:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--u:min(calc(100vw/1600),calc(100vh/900));--cream:#F3ECE4;--graphite:#2B2A2E;--graphite-alt:#323136;--card:#3A393E;--line:#4A484E}
+:root{--u:min(calc(100vw/1600),calc(100vh/900));--cream:#F3ECE4;--graphite:#2B2A2E;--graphite-alt:#323136;--card:#3A393E;--line:#4A484E;--peach:#E2B4A6;--ease:cubic-bezier(.215,.61,.355,1)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:var(--graphite)}body{min-height:100%;background:var(--graphite);overflow-x:hidden}
 body{color:var(--cream);font-family:Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
@@ -132,22 +132,74 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
 .slider-track::-webkit-scrollbar{display:none}
 .slider-track.is-drag{scroll-behavior:auto;cursor:grabbing}
 .slide{
-  flex:0 0 calc((100% - 16px) / 2);scroll-snap-align:start;
-  display:grid;grid-template-rows:auto 1fr;min-height:340px;
+  flex:0 0 calc((100% - 48px) / 4);scroll-snap-align:start;
+  display:grid;grid-template-rows:auto 1fr;min-height:280px;
   background:var(--card);border:1px solid var(--line);
 }
 .slide-visual{
-  display:grid;place-items:center;min-height:170px;background:var(--graphite-alt);
+  background:var(--graphite-alt);aspect-ratio:4/3;overflow:hidden;
 }
-.slide-visual span{
-  font:300 72px/.9 Oswald,"Arial Narrow",sans-serif;letter-spacing:-.04em;color:var(--cream);
+.slide-visual img{width:100%;height:100%;object-fit:cover;display:block}
+.slide-body{padding:18px 16px 20px}
+.slide-body h3{font-size:18px;font-weight:500;letter-spacing:-.02em}
+.slide-body .names{font-size:14px;font-weight:500;color:var(--peach);margin:8px 0 8px;line-height:1.35}
+.slide-body p{font-size:14px;line-height:1.45;color:var(--cream)}
+@media (max-width:1199px){
+  .slide{flex-basis:calc((100% - 16px) / 2)}
 }
-.slide-body{padding:22px 22px 24px}
-.slide-body h3{font-size:22px;font-weight:500;letter-spacing:-.02em}
-.slide-body .role{font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:.6;margin:6px 0 10px}
-.slide-body p{font-size:15px;line-height:1.5;color:var(--cream)}
 @media (max-width:720px){
-  .slide{flex-basis:100%}
+  .slide{flex-basis:calc(100% - 56px)}
+}
+
+
+.ico{display:inline-grid;place-items:center;width:36px;height:36px;flex:none;color:var(--cream);
+  transition:transform .3s var(--ease),color .3s var(--ease)}
+.ico svg{width:24px;height:24px;display:block;overflow:visible}
+.ico svg :is(path,circle,rect,ellipse,polyline,line){
+  fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:72;stroke-dashoffset:0;
+  transition:stroke .3s var(--ease),fill .5s var(--ease),stroke-dashoffset .6s var(--ease);
+}
+.card:hover .ico,.card:focus-within .ico,
+.fact:hover .ico,.fact:focus-within .ico,
+.tl:hover .ico,.tl:focus-within .ico,
+.qa:hover .ico,.qa:focus-within .ico,.qa[open] .ico,
+.ci:hover .ico,.ci:focus-within .ico,
+.contact .big:hover .ico,.contact .big:focus-visible .ico,
+.ghost:hover .ico,.ghost:focus-visible .ico{
+  transform:translateY(-3px) rotate(-8deg);color:var(--peach);
+}
+.card:hover .ico svg :is(path,circle,rect,ellipse,polyline,line),
+.card:focus-within .ico svg :is(path,circle,rect,ellipse,polyline,line),
+.fact:hover .ico svg :is(path,circle,rect,ellipse,polyline,line),
+.fact:focus-within .ico svg :is(path,circle,rect,ellipse,polyline,line),
+.tl:hover .ico svg :is(path,circle,rect,ellipse,polyline,line),
+.qa:hover .ico svg :is(path,circle,rect,ellipse,polyline,line),
+.qa[open] .ico svg :is(path,circle,rect,ellipse,polyline,line),
+.ci:hover .ico svg :is(path,circle,rect,ellipse,polyline,line),
+.contact .big:hover .ico svg :is(path,circle,rect,ellipse,polyline,line),
+.ghost:hover .ico svg :is(path,circle,rect,ellipse,polyline,line){
+  animation:ico-draw .6s var(--ease);
+  fill:color-mix(in srgb, currentColor 20%, transparent);
+}
+@keyframes ico-draw{from{stroke-dashoffset:72}to{stroke-dashoffset:0}}
+.qa .plus-v{transform-origin:12px 12px;transition:transform .3s var(--ease)}
+.qa[open] .plus-v{transform:rotate(90deg)}
+.card__top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.fact .ico{margin-bottom:12px}
+.tl{grid-template-columns:72px 36px 1fr;align-items:start}
+.qa summary{list-style:none;cursor:pointer;display:flex;align-items:flex-start;gap:14px;font-size:20px;font-weight:500}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
+.contact .big{display:flex;align-items:center;gap:14px}
+.ci,.addr-item,.hours{display:flex;align-items:flex-start;gap:12px}
+.addr-item{margin-bottom:16px}
+.hours{margin-top:22px;max-width:48ch;font-size:18px;line-height:1.5}
+.contact-extra{display:flex;flex-direction:column;gap:12px}
+.ghost{gap:10px}
+@media (prefers-reduced-motion:reduce){
+  .ico,.ico svg :is(path,circle,rect,ellipse,polyline,line),.qa .plus-v{transition:none!important;animation:none!important}
+  .card:hover .ico,.fact:hover .ico,.tl:hover .ico,.qa:hover .ico,.ci:hover .ico,.contact .big:hover .ico,.ghost:hover .ico{transform:none}
 }
 
 .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;padding:0 0 48px;font-size:13px;opacity:.55}
@@ -156,7 +208,7 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
   .gallery{grid-template-columns:1fr 1fr;grid-auto-rows:minmax(160px,40vw)}
   .gallery .a{grid-row:auto;grid-column:1 / -1;min-height:220px}
   .sec{padding:88px 0}
-  .tl{grid-template-columns:56px 1fr}
+  .tl{grid-template-columns:48px 32px 1fr}
 }
 
 </style>
@@ -191,42 +243,42 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
     </div>
     <div class="grid">
       <article class="card">
-        <span class="card__num">01</span>
+        <div class="card__top"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M10 3.5h4v5.2c.9.4 1.5 1.3 1.5 2.4v8.2a2.5 2.5 0 0 1-5 0v-8.2c0-1.1.6-2 1.5-2.4V3.5z"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M10 7h4"/></svg></span><span class="card__num">01</span></div>
         <h3>Мастер по маникюру 4 разряда</h3>
         <p>Базовый курс с нуля: классика, комбинированный маникюр, гель-лак.</p>
         <div class="card__meta"><span class="card__dur">1,5 мес</span></div>
         <a href="tel:+375297113416">Записаться <span aria-hidden="true">↗</span></a>
       </article>
       <article class="card">
-        <span class="card__num">02</span>
+        <div class="card__top"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M6.5 8.5v9a2 2 0 0 0 4 0v-9H6.5z"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M6.5 8.5c0-2 2-4 2-4s2 2 2 4"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M13.5 11v6.5a2 2 0 0 0 4 0V11h-4z"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M13.5 11c0-1.8 2-3.4 2-3.4s2 1.6 2 3.4"/></svg></span><span class="card__num">02</span></div>
         <h3>Маникюр и педикюр 4 разряда</h3>
         <p>Полный курс мастера маникюра и педикюра с практикой на моделях.</p>
         <div class="card__meta"><span class="card__dur">3 мес</span></div>
         <a href="tel:+375297113416">Записаться <span aria-hidden="true">↗</span></a>
       </article>
       <article class="card">
-        <span class="card__num">03</span>
+        <div class="card__top"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M4 16.2L16.2 4l3.8 3.8L7.8 20H4v-3.8z"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M14.2 6l3.8 3.8"/></svg></span><span class="card__num">03</span></div>
         <h3>Самозанятый мастер по маникюру</h3>
         <p>Интенсив на 3 дня: фрезер, комбинированный маникюр, гель-лак.</p>
         <div class="card__meta"><span class="card__dur">3 дня</span></div>
         <a href="tel:+375297113416">Записаться <span aria-hidden="true">↗</span></a>
       </article>
       <article class="card">
-        <span class="card__num">04</span>
+        <div class="card__top"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M7 15.5c0-4 2.3-7.5 5-7.5 3.2 0 5.5 2.8 5.5 6.2 0 2.6-1.6 4.8-4.6 4.8H9.2C7.8 19 7 17.6 7 16.2c0-.3 0-.5.1-.7"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M12 8c.4-1.8 1.8-3.5 3.6-3.5 1.5 0 2.7 1.1 2.7 2.6 0 1.8-1.4 2.8-3 3.4"/></svg></span><span class="card__num">04</span></div>
         <h3>Самозанятый мастер по педикюру</h3>
         <p>Интенсив: комбинированный педикюр и покрытие гель-лак на моделях.</p>
         <div class="card__meta"><span class="card__dur">3 дня</span></div>
         <a href="tel:+375297113416">Записаться <span aria-hidden="true">↗</span></a>
       </article>
       <article class="card">
-        <span class="card__num">05</span>
+        <div class="card__top"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" cx="6.2" cy="6.8" r="2.1"/><circle pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" cx="6.2" cy="17.2" r="2.1"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8 8.2L20.2 18.4"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8 15.8L20.2 5.6"/></svg></span><span class="card__num">05</span></div>
         <h3>Парикмахер 4 разряда</h3>
         <p>Обучение с нуля: стрижки, укладки, окрашивание, химическая завивка.</p>
         <div class="card__meta"><span class="card__dur">6 мес</span></div>
         <a href="tel:+375297113416">Записаться <span aria-hidden="true">↗</span></a>
       </article>
       <article class="card">
-        <span class="card__num">06</span>
+        <div class="card__top"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M5 4.5h3v15H5z"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8 6.2h11"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8 9.4h11"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8 12.6h11"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8 15.8h11"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8 19h11"/></svg></span><span class="card__num">06</span></div>
         <h3>Парикмахер 5 разряда</h3>
         <p>Повышение квалификации: колористика, модельные стрижки, причёски.</p>
         <div class="card__meta"><span class="card__dur">1 мес</span></div>
@@ -242,19 +294,23 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
     <h2>Центр при сети «БиGOODи»</h2>
     <p class="lede">Мы работаем в Витебске больше 15 лет. Готовим мастеров для сети парикмахерских «БиGOODи» и по заявкам предприятий. Учебный центр ведёт ЧТПУП «БелОксиС».</p>
     <div class="columns">
-      <div>
+      <div class="fact">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M4 6.2l8 2.2v11.2L4 17.4V6.2z"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M20 6.2l-8 2.2v11.2l8-2.2V6.2z"/></svg></span>
         <h3>Как учат</h3>
         <p>Теория и практика на моделях. На курсах косметика и классического массажа практика составляет около 70%. На многих программах модели нужно привести с собой.</p>
       </div>
-      <div>
+      <div class="fact">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" x="4" y="6" width="16" height="14" rx="2"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8 4v4"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M16 4v4"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M4 10.5h16"/></svg></span>
         <h3>Форматы</h3>
         <p>Есть длинные курсы с разрядом и короткие интенсивы. Для действующих мастеров проводим повышение квалификации, семинары и мастер-классы.</p>
       </div>
-      <div>
+      <div class="fact">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M4 10h16v9.5H4z"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8 10V7.6a4 3 0 0 1 8 0V10"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M4 14.2h16"/></svg></span>
         <h3>Что обещают к профкурсам</h3>
         <p>На парикмахере 4 разряда: инструменты выдают, места оборудованы, материалы профессиональные, в магазине «БиGOODи» есть скидка на материалы и инструменты. В подарок — курс «Лёгкий START» про аккаунт и оформление работы.</p>
       </div>
-      <div>
+      <div class="fact">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" x="5.5" y="3.5" width="13" height="17" rx="1.5"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8.5 8.5h7"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8.5 12.2h7"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8.5 16h5"/></svg></span>
         <h3>Документы</h3>
         <p>После «Архитектуры бровей» и «PRO наращивания» выдаём сертификат. Какой документ будет после разрядной программы, расскажем при записи.</p>
       </div>
@@ -268,7 +324,7 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
         <div>
           <p class="eyebrow">Преподаватели</p>
           <h2>Наши преподаватели</h2>
-          <p class="lede">Практикующие мастера и педагоги: ставим руку на моделях и разбираем теорию.</p>
+          <p class="lede">Практикующие мастера и педагоги: ставим руку на моделях и разбираем теорию. Директор учебного центра — Евгения Шевченко, ведёт BUSINESS START. INSTA START в курсе «Лёгкий START» ведёт Татьяна Парфёнова.</p>
         </div>
       </div>
       <div class="slider" data-slider>
@@ -282,91 +338,80 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
         </div>
         <div class="slider-track" tabindex="0" role="region" aria-label="Наши преподаватели">
         <article class="slide">
-          <div class="slide-visual" aria-hidden="true"><span>ЕШ</span></div>
-          <div class="slide-body">
-            <h3>Евгения Шевченко</h3>
-            <p class="role">Директор учебного центра и сети «БиGOODи»</p>
-            <p>Ведёт курс BUSINESS START: как устроить работу салона, продажи и оформление бизнеса. Проходила семинары по управлению персоналом, телефонным продажам и обучение в бизнес-школе ИПМ.</p>
+          <div class="slide-visual">
+            <!-- PLACEHOLDER: generated photo of work in class, not a portrait of a named teacher -->
+            <img src="assets/masters/hair.webp" alt="Мастер стрижёт клиента в учебном зале" width="1152" height="864">
           </div>
-        </article>
-        <article class="slide">
-          <div class="slide-visual" aria-hidden="true"><span>ОС</span></div>
           <div class="slide-body">
-            <h3>Ольга Седловская</h3>
-            <p class="role">Маникюр, педикюр, моделирование ногтей</p>
-            <p>Преподаёт 8 лет, мастер 5 разряда, инструктор RuNail. Стажировалась в школах Елены Шанской, Татьяны Соловьёвой, Татьяны Грищенко и Александра Финько, в студии Сакелари. Лауреат и призёр конкурсов «Роза ветров» и чемпионата Беларуси по моделированию ногтей.</p>
-          </div>
-        </article>
-        <article class="slide">
-          <div class="slide-visual" aria-hidden="true"><span>ЕС</span></div>
-          <div class="slide-body">
-            <h3>Евгения Сивакова</h3>
-            <p class="role">Парикмахерское искусство</p>
+            <h3>Парикмахерское искусство</h3>
+            <p class="names">Евгения Сивакова</p>
             <p>Парикмахер 4 разряда, технолог Constant Delight и Nexxt, гранд-технолог CD, дипломант международного конкурса. Повышение квалификации в Италии (2019) и Турции (2020).</p>
           </div>
         </article>
         <article class="slide">
-          <div class="slide-visual" aria-hidden="true"><span>ИШ</span></div>
+          <div class="slide-visual">
+            <!-- PLACEHOLDER: generated photo of work in class, not a portrait of a named teacher -->
+            <img src="assets/masters/manicure.webp" alt="Мастер делает маникюр за учебным столом" width="1152" height="864">
+          </div>
           <div class="slide-body">
-            <h3>Инесса Шевченко</h3>
-            <p class="role">Косметик, восковая депиляция</p>
-            <p>Косметик 5 разряда. Ведёт практику по программе «Косметик» и курс «Восковая депиляция». В профессии больше 15 лет.</p>
+            <h3>Маникюр и педикюр</h3>
+            <p class="names">Ольга Седловская</p>
+            <p>Преподаёт 8 лет, мастер 5 разряда, инструктор RuNail. Стажировалась в школах Елены Шанской, Татьяны Соловьёвой, Татьяны Грищенко и Александра Финько, в студии Сакелари. Лауреат и призёр конкурсов «Роза ветров» и чемпионата Беларуси по моделированию ногтей.</p>
           </div>
         </article>
         <article class="slide">
-          <div class="slide-visual" aria-hidden="true"><span>МЗ</span></div>
+          <div class="slide-visual">
+            <!-- PLACEHOLDER: generated photo of work in class, not a portrait of a named teacher -->
+            <img src="assets/masters/makeup.webp" alt="Мастер наносит макияж модели в учебном классе" width="1152" height="864">
+          </div>
           <div class="slide-body">
-            <h3>Мария Зуева</h3>
-            <p class="role">Массаж, косметик 4 разряда</p>
+            <h3>Визаж</h3>
+            <p class="names">Светлана Яцынович / Дана Лизбанова</p>
+            <p>Светлана Яцынович — автор курса «Брови BAZA» и тренер программы «Визажист 4 разряда». Дана Лизбанова ведёт программу «Визажист 4 разряда».</p>
+          </div>
+        </article>
+        <article class="slide">
+          <div class="slide-visual">
+            <!-- PLACEHOLDER: generated photo of work in class, not a portrait of a named teacher -->
+            <img src="assets/masters/brows.webp" alt="Мастер оформляет брови клиенту" width="1152" height="864">
+          </div>
+          <div class="slide-body">
+            <h3>Брови</h3>
+            <p class="names">Светлана Яцынович / Дана Исаева</p>
+            <p>Светлана Яцынович ведёт «Брови BAZA». Дана Исаева ведёт курс «Архитектура бровей».</p>
+          </div>
+        </article>
+        <article class="slide">
+          <div class="slide-visual">
+            <!-- PLACEHOLDER: generated photo of work in class, not a portrait of a named teacher -->
+            <img src="assets/masters/lashes.webp" alt="Мастер наращивает ресницы" width="1152" height="864">
+          </div>
+          <div class="slide-body">
+            <h3>Наращивание ресниц</h3>
+            <p class="names">Анна Коврик</p>
+            <p>Практикующий мастер с педагогическим образованием. Стаж в бьюти больше 5 лет, преподавательский — 3 года. Дипломант международного чемпионата по наращиванию ресниц 2018 года в Минске. Также работает с бровями.</p>
+          </div>
+        </article>
+        <article class="slide">
+          <div class="slide-visual">
+            <!-- PLACEHOLDER: generated photo of work in class, not a portrait of a named teacher -->
+            <img src="assets/masters/cosmetology.webp" alt="Косметолог наносит маску клиенту в учебном кабинете" width="1152" height="864">
+          </div>
+          <div class="slide-body">
+            <h3>Косметология</h3>
+            <p class="names">Инесса Шевченко / Ольга Дикусарова</p>
+            <p>Инесса Шевченко — косметик 5 разряда, больше 15 лет в профессии: ведёт практику по программе «Косметик» и курс «Восковая депиляция». Ольга Дикусарова ведёт группу выходного дня на курсе косметика 4 разряда.</p>
+          </div>
+        </article>
+        <article class="slide">
+          <div class="slide-visual">
+            <!-- PLACEHOLDER: generated photo of work in class, not a portrait of a named teacher -->
+            <img src="assets/masters/massage.webp" alt="Мастер делает массаж в учебном кабинете" width="1152" height="864">
+          </div>
+          <div class="slide-body">
+            <h3>Массаж</h3>
+            <p class="names">Мария Зуева</p>
             <p>Врач, массажист со стажем 10 лет, косметик, мастер тейпирования, основатель spa-студии. Победитель чемпионата Беларуси по spa-массажу (2015). Ведёт массаж и дневную и вечернюю группы косметика 4 разряда.</p>
-          </div>
-        </article>
-        <article class="slide">
-          <div class="slide-visual" aria-hidden="true"><span>АК</span></div>
-          <div class="slide-body">
-            <h3>Анна Коврик</h3>
-            <p class="role">Наращивание ресниц, brow</p>
-            <p>Практикующий мастер с педагогическим образованием. Стаж в бьюти больше 5 лет, преподавательский — 3 года. Дипломант международного чемпионата по наращиванию ресниц 2018 года в Минске.</p>
-          </div>
-        </article>
-        <article class="slide">
-          <div class="slide-visual" aria-hidden="true"><span>СЯ</span></div>
-          <div class="slide-body">
-            <h3>Светлана Яцынович</h3>
-            <p class="role">Визаж, брови</p>
-            <p>Автор курса «Брови BAZA» и тренер программы «Визажист 4 разряда».</p>
-          </div>
-        </article>
-        <article class="slide">
-          <div class="slide-visual" aria-hidden="true"><span>ДИ</span></div>
-          <div class="slide-body">
-            <h3>Дана Исаева</h3>
-            <p class="role">Брови</p>
-            <p>Ведёт курс «Архитектура бровей».</p>
-          </div>
-        </article>
-        <article class="slide">
-          <div class="slide-visual" aria-hidden="true"><span>ДЛ</span></div>
-          <div class="slide-body">
-            <h3>Дана Лизбанова</h3>
-            <p class="role">Визаж</p>
-            <p>Ведёт программу «Визажист 4 разряда».</p>
-          </div>
-        </article>
-        <article class="slide">
-          <div class="slide-visual" aria-hidden="true"><span>ОД</span></div>
-          <div class="slide-body">
-            <h3>Ольга Дикусарова</h3>
-            <p class="role">Косметик 4 разряда</p>
-            <p>Ведёт группу выходного дня на курсе косметика 4 разряда.</p>
-          </div>
-        </article>
-        <article class="slide">
-          <div class="slide-visual" aria-hidden="true"><span>ТП</span></div>
-          <div class="slide-body">
-            <h3>Татьяна Парфёнова</h3>
-            <p class="role">INSTA START</p>
-            <p>Ведёт INSTA START в курсе «Лёгкий START»: практикующий SMM-специалист и контентмейкер.</p>
           </div>
         </article>
         </div>
@@ -397,10 +442,10 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
       <h2>Как попасть на курс</h2>
     </div>
     <div class="timeline">
-      <div class="tl"><span>01</span><p>Позвоните Евгении: +375 (29) 711-34-16 или +375 (29) 511-34-16.</p></div>
-      <div class="tl"><span>02</span><p>Приезжайте с паспортом в будни с 09:00 до 18:00, обед 13:00–14:00. Ждём вас на ул. Белорусской, 6Г, офис 7, 2 этаж.</p></div>
-      <div class="tl"><span>03</span><p>Договор: паспорт, копия паспорта и 2 фото.</p></div>
-      <div class="tl"><span>04</span><p>Оплата или предоплата — условия расскажем при записи. Дальше теория и практика. Есть утренние, дневные, вечерние группы и группы выходного дня — зависит от курса.</p></div>
+      <div class="tl"><span>01</span><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8.2 3.6c.9-.3 1.9.3 2.3 1.2l.9 2c.3.7 0 1.4-.5 1.9L9.7 10a11 11 0 0 0 4.3 4.3l1.3-1.2c.5-.5 1.2-.8 1.9-.5l2 .9c.9.4 1.5 1.4 1.2 2.3l-.4 1.1c-.4 1.1-1.6 1.7-2.7 1.5C10 17.5 6.5 14 5.4 6.6c-.2-1.1.4-2.3 1.5-2.7l1.3-.3z"/></svg></span><p>Позвоните Евгении: +375 (29) 711-34-16 или +375 (29) 511-34-16.</p></div>
+      <div class="tl"><span>02</span><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M12 21s6.5-5.8 6.5-11A6.5 6.5 0 0 0 5.5 10c0 5.2 6.5 11 6.5 11z"/><circle pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" cx="12" cy="10" r="2.1"/></svg></span><p>Приезжайте с паспортом в будни с 09:00 до 18:00, обед 13:00–14:00. Ждём вас на ул. Белорусской, 6Г, офис 7, 2 этаж.</p></div>
+      <div class="tl"><span>03</span><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M7 4h7.5L19 8.5V20.5H7z"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M14.5 4v4.5H19"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M10 12h6"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M10 15.5h5"/></svg></span><p>Договор: паспорт, копия паспорта и 2 фото.</p></div>
+      <div class="tl"><span>04</span><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" cx="12" cy="12" r="8"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M12 8v4.4l3 1.8"/></svg></span><p>Оплата или предоплата — условия расскажем при записи. Дальше теория и практика. Есть утренние, дневные, вечерние группы и группы выходного дня — зависит от курса.</p></div>
     </div>
   </div>
 </section>
@@ -410,11 +455,11 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
     <p class="eyebrow">Вопросы</p>
     <h2>Частые вопросы</h2>
     <div class="qas">
-      <div class="qa"><h3>Как записаться?</h3><p>Позвоните, затем приезжайте с паспортом. Можно выбрать утро, день или выходной.</p></div>
-      <div class="qa"><h3>Нужны ли модели?</h3><p>На большинстве практических курсов да.</p></div>
-      <div class="qa"><h3>Что с работой после учёбы?</h3><p>На курсах с разрядом помогаем с трудоустройством, в том числе в сеть «БиGOODи». Как это устроено на выбранном направлении, расскажем при записи.</p></div>
-      <div class="qa"><h3>Какой документ выдают?</h3><p>После «Архитектуры бровей» и «PRO наращивания» выдаём сертификат. По остальным программам документ уточним при записи.</p></div>
-      <div class="qa"><h3>Где вы находитесь?</h3><p>Для записи приезжайте на ул. Белорусскую, 6Г, офис 7, 2 этаж. Также в наших контактах встречаются ул. Белорусская, 6а, офис 16 и ул. Зеньковой, 1, офис 3г/6. Актуальный адрес лучше подтвердить по телефону.</p></div>
+      <details class="qa"><summary><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" cx="12" cy="12" r="8"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8 12h8"/><path class="plus-v" pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M12 8v8"/></svg></span><span>Как записаться?</span></summary><p>Позвоните, затем приезжайте с паспортом. Можно выбрать утро, день или выходной.</p></details>
+      <details class="qa"><summary><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" cx="12" cy="12" r="8"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8 12h8"/><path class="plus-v" pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M12 8v8"/></svg></span><span>Нужны ли модели?</span></summary><p>На большинстве практических курсов да.</p></details>
+      <details class="qa"><summary><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" cx="12" cy="12" r="8"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8 12h8"/><path class="plus-v" pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M12 8v8"/></svg></span><span>Что с работой после учёбы?</span></summary><p>На курсах с разрядом помогаем с трудоустройством, в том числе в сеть «БиGOODи». Как это устроено на выбранном направлении, расскажем при записи.</p></details>
+      <details class="qa"><summary><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" cx="12" cy="12" r="8"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8 12h8"/><path class="plus-v" pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M12 8v8"/></svg></span><span>Какой документ выдают?</span></summary><p>После «Архитектуры бровей» и «PRO наращивания» выдаём сертификат. По остальным программам документ уточним при записи.</p></details>
+      <details class="qa"><summary><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" cx="12" cy="12" r="8"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8 12h8"/><path class="plus-v" pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M12 8v8"/></svg></span><span>Где вы находитесь?</span></summary><p>Для записи приезжайте на ул. Белорусскую, 6Г, офис 7, 2 этаж. Также в наших контактах встречаются ул. Белорусская, 6а, офис 16 и ул. Зеньковой, 1, офис 3г/6. Актуальный адрес лучше подтвердить по телефону.</p></details>
     </div>
   </div>
 </section>
@@ -424,16 +469,20 @@ a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
     <div>
       <p class="eyebrow">Запись</p>
       <h2>Позвоните Евгении</h2>
-      <p class="lede">Будни 09:00–18:00, обед 13:00–14:00. Суббота и воскресенье — выходные.</p>
-      <a class="big" href="tel:+375297113416">+375 (29) 711-34-16</a>
-      <a class="big" href="tel:+375295113416">+375 (29) 511-34-16</a>
-      <p class="fine">Магазин «БиGOODи»: +375 (29) 210-25-05. Почта: <a href="mailto:beloksis@mail.ru">beloksis@mail.ru</a> / <a href="mailto:Eugenia_beloksis@mail.ru">Eugenia_beloksis@mail.ru</a>. Мы в Instagram: bigoodi.school.by.</p>
-      <a class="ghost" href="tel:+375297113416">Позвонить</a>
+      <p class="lede hours"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" cx="12" cy="12" r="8"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M12 8v4.4l3 1.8"/></svg></span><span>Будни 09:00–18:00, обед 13:00–14:00. Суббота и воскресенье — выходные.</span></p>
+      <a class="big ci" href="tel:+375297113416"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8.2 3.6c.9-.3 1.9.3 2.3 1.2l.9 2c.3.7 0 1.4-.5 1.9L9.7 10a11 11 0 0 0 4.3 4.3l1.3-1.2c.5-.5 1.2-.8 1.9-.5l2 .9c.9.4 1.5 1.4 1.2 2.3l-.4 1.1c-.4 1.1-1.6 1.7-2.7 1.5C10 17.5 6.5 14 5.4 6.6c-.2-1.1.4-2.3 1.5-2.7l1.3-.3z"/></svg></span><span>+375 (29) 711-34-16</span></a>
+      <a class="big ci" href="tel:+375295113416"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8.2 3.6c.9-.3 1.9.3 2.3 1.2l.9 2c.3.7 0 1.4-.5 1.9L9.7 10a11 11 0 0 0 4.3 4.3l1.3-1.2c.5-.5 1.2-.8 1.9-.5l2 .9c.9.4 1.5 1.4 1.2 2.3l-.4 1.1c-.4 1.1-1.6 1.7-2.7 1.5C10 17.5 6.5 14 5.4 6.6c-.2-1.1.4-2.3 1.5-2.7l1.3-.3z"/></svg></span><span>+375 (29) 511-34-16</span></a>
+      <p class="fine contact-extra">
+        <span class="ci"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8.2 3.6c.9-.3 1.9.3 2.3 1.2l.9 2c.3.7 0 1.4-.5 1.9L9.7 10a11 11 0 0 0 4.3 4.3l1.3-1.2c.5-.5 1.2-.8 1.9-.5l2 .9c.9.4 1.5 1.4 1.2 2.3l-.4 1.1c-.4 1.1-1.6 1.7-2.7 1.5C10 17.5 6.5 14 5.4 6.6c-.2-1.1.4-2.3 1.5-2.7l1.3-.3z"/></svg></span><span>Магазин «БиGOODи»: +375 (29) 210-25-05</span></span>
+        <span class="ci"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" x="3.5" y="6" width="17" height="12" rx="1.6"/><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M4.2 7.3 12 13l7.8-5.7"/></svg></span><span><a href="mailto:beloksis@mail.ru">beloksis@mail.ru</a> / <a href="mailto:Eugenia_beloksis@mail.ru">Eugenia_beloksis@mail.ru</a></span></span>
+        <span>Мы в Instagram: bigoodi.school.by.</span>
+      </p>
+      <a class="ghost" href="tel:+375297113416"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M8.2 3.6c.9-.3 1.9.3 2.3 1.2l.9 2c.3.7 0 1.4-.5 1.9L9.7 10a11 11 0 0 0 4.3 4.3l1.3-1.2c.5-.5 1.2-.8 1.9-.5l2 .9c.9.4 1.5 1.4 1.2 2.3l-.4 1.1c-.4 1.1-1.6 1.7-2.7 1.5C10 17.5 6.5 14 5.4 6.6c-.2-1.1.4-2.3 1.5-2.7l1.3-.3z"/></svg></span>Позвонить</a>
     </div>
     <div class="addr-block">
-      <p><strong>Для записи</strong>Витебск, ул. Белорусская, 6Г, офис 7, 2 этаж<br><a href="https://yandex.by/maps/?text=%D0%92%D0%B8%D1%82%D0%B5%D0%B1%D1%81%D0%BA%20%D1%83%D0%BB.%20%D0%91%D0%B5%D0%BB%D0%BE%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%B0%D1%8F%206%D0%93" target="_blank" rel="noopener">Открыть карту</a></p>
-      <p><strong>Ещё один адрес</strong>ул. Белорусская, 6а, офис 16, 3 этаж</p>
-      <p><strong>Ещё один адрес</strong>ул. Зеньковой, 1, офис 3г/6, 4 этаж</p>
+      <p class="addr-item ci"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M12 21s6.5-5.8 6.5-11A6.5 6.5 0 0 0 5.5 10c0 5.2 6.5 11 6.5 11z"/><circle pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" cx="12" cy="10" r="2.1"/></svg></span><span><strong>Для записи</strong>Витебск, ул. Белорусская, 6Г, офис 7, 2 этаж<br><a href="https://yandex.by/maps/?text=%D0%92%D0%B8%D1%82%D0%B5%D0%B1%D1%81%D0%BA%20%D1%83%D0%BB.%20%D0%91%D0%B5%D0%BB%D0%BE%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%B0%D1%8F%206%D0%93" target="_blank" rel="noopener">Открыть карту</a></span></p>
+      <p class="addr-item ci"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M12 21s6.5-5.8 6.5-11A6.5 6.5 0 0 0 5.5 10c0 5.2 6.5 11 6.5 11z"/><circle pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" cx="12" cy="10" r="2.1"/></svg></span><span><strong>Ещё один адрес</strong>ул. Белорусская, 6а, офис 16, 3 этаж</span></p>
+      <p class="addr-item ci"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M12 21s6.5-5.8 6.5-11A6.5 6.5 0 0 0 5.5 10c0 5.2 6.5 11 6.5 11z"/><circle pathLength="72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" cx="12" cy="10" r="2.1"/></svg></span><span><strong>Ещё один адрес</strong>ул. Зеньковой, 1, офис 3г/6, 4 этаж</span></p>
       <p><strong>Реквизиты</strong>ЧТПУП «БелОксиС» / УНН 391261401<br>Факс: 8 0212 35-98-01</p>
     </div>
   </div>
